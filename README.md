@@ -1,10 +1,10 @@
 # Pizza.py
 By launching it on terminal and giving argument a pizzaonline address you'll get all that you can buy in min to max order in your txt file
 You'll need to have installed following libraries:
-  Requests
-  bs4, for BeautifulSoup
-  re
-  collections, for OrderedDict
+  Requests;
+  bs4, for BeautifulSoup;
+  re;
+  collections, for OrderedDict;
   
 So you go to pizza-online website and write your address there. Then press enter. Then it will load you to another site where you can see all the restaurants that are in your reach. Then get sites address and copy it. Write in your shell/terminal
 python pizza.py "sites address"
