@@ -25,24 +25,33 @@ for i in hrefs1:
     kategoriat = pizzasoppa.find_all("div",class_="category_products")
 
     for erilajikkeet in kategoriat:
-        try:
-            #making lists for every dataproductids
-            lista = [d["data-product_id"] for d in erilajikkeet.select("li")]
-            #print(lista)
-            for dataid in lista:
+        if("pizza" in erilajikkeet.find("h3").get_text().lower()):
 
-                tuotteen_tiedot = pizzasoppa.find("li", {"data-product_id" : "{}".format(dataid)})
-                nimi = tuotteen_tiedot.find("span").get_text()
-                kaikki_hinnat = tuotteen_tiedot.find("select", id="product_variant_for_{}".format(dataid))
-                hinta_lista = [d.get_text() for d in kaikki_hinnat.find_all("option")]
-                koko_nimi = pizzerian_nimi + " " + nimi
-                for i in hinta_lista:
-                    all_pizzas.update({koko_nimi:i})
-        #Just because pizzaonline is shit and has empty categories this needs
-        #to be here.
 
-        except KeyError:
-            pass
+            try:
+                #making lists for every dataproductids
+                lista = [d["data-product_id"] for d in erilajikkeet.select("li")]
+                #print(lista)
+                for dataid in lista:
+
+                    tuotteen_tiedot = pizzasoppa.find("li", {"data-product_id" : "{}".format(dataid)})
+                    nimi = tuotteen_tiedot.find("span").get_text()
+
+                    kaikki_hinnat = tuotteen_tiedot.find("select", id="product_variant_for_{}".format(dataid))
+                    hinta_lista = [d.get_text() for d in kaikki_hinnat.find_all("option")]
+
+                    koko_nimi = pizzerian_nimi + " " + nimi
+                    j=0
+                    for i in hinta_lista:
+                        j = j+1
+                        string = str(j)
+                        toinen_nimi = koko_nimi + "(" + string + ")"
+                        all_pizzas.update({toinen_nimi:i})
+            #Just because pizzaonline is not good and has empty categories this needs
+            #to be here.
+
+            except KeyError:
+                pass
 
 em_values = all_pizzas.values()
 em_keys = list(all_pizzas.keys())
